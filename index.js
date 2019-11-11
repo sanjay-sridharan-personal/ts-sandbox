@@ -1,59 +1,52 @@
+"use strict";
+
 main();
 
-interface Point {
-    x: number;
-    y: number;
-}
-
-function NewPoint(): Point {
+function NewPoint() {
     return {
         x: 0,
         y: 0
     };
 }
 
-function main(): void {
-    const canvas : HTMLCanvasElement = document.getElementById('drawsomething')! as HTMLCanvasElement;
-    const pencil : CanvasRenderingContext2D = canvas.getContext('2d')!;
+function main() {
+    const canvas = document.getElementById('drawsomething');
+    const pencil = canvas.getContext('2d');
 
-    let position: Point = NewPoint();
+    // Properties
+    
+    let position = NewPoint();
+    let color = "black";
+    let pointWidth = 2;
+    let lineWidth = 2;
 
-    let color: string = "black";
+    // Functions
 
-    let pointWidth: number = 2;
-
-    let lineWidth: number = 2;
-
-    function drawPoint(x: number, y: number)
-    {
+    function drawPoint(x, y) {
         pencil.fillStyle = color;
         pencil.fillRect(position.x + x, position.y + y, pointWidth, pointWidth);
     }
 
-    function drawLineSegment(x1: number, y1: number, x2: number, y2: number)
-    {
+    function drawLineSegment(x1, y1, x2, y2) {
         pencil.lineWidth = lineWidth;
         pencil.strokeStyle = color;
         pencil.beginPath();
         pencil.moveTo(x1, y1);
-
         // Move the position to where this line ends so that the next drawLine starts from the end of this one
         position.x = x2;
         position.y = y2;
         pencil.lineTo(position.x, position.y);
-
         pencil.stroke();
     }
 
-    function drawLine(dx: number, dy: number)
-    {
+    function drawLine(dx, dy) {
         drawLineSegment(position.x, position.y, position.x + dx, position.y + dy);
     }
 
     // Draw a triangle
     position.x = 200;
     position.y = 150;
-    color = "purple";
+    color = "cyan";
     lineWidth = 2;
     drawLine(-50, 100);
     drawLine(100, 0);
@@ -64,22 +57,21 @@ function main(): void {
     position.x = 200;
     position.y = 200;
     pointWidth = 3;
-    // drawPoint(0, 0);
+    drawPoint(0, 0);
     drawPoint(100, 0);
     drawPoint(-100, 0);
     drawPoint(0, -100);
     drawPoint(0, 100);
-
+    
     // Draw a sine curve
     color = "red";
     position.x = 400;
     position.y = 500;
-    for (let x = -180; x <= 180; x++)
-    {
+    for (let x = -180; x <= 180; x++) {
         let y = 100 * Math.sin(x * Math.PI / 180);
         drawPoint(x, y);
     }
-
+    
     // Draw the axes of the sine curve
     color = "black";
     lineWidth = 1;
