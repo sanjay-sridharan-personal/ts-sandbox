@@ -77,4 +77,18 @@ function main() {
     lineWidth = 1;
     drawLineSegment(200, 500, 600, 500);
     drawLineSegment(400, 380, 400, 620);
+
+    // js-sandbox
+    let myStringArray = [];
+    myStringArray.push("Sanjay");
+    myStringArray.push("Seth");
+    myStringArray.push("Sanjay");
+    myStringArray.push("Seth");
+    myStringArray.push("Sanjay");
+    let mySet = new Set(myStringArray);
+    console.log(mySet);
+    console.log(myStringArray);
+    let myMap = new Map([[ 1, 'one' ],[ 2, 'two' ]]);
+    let myJson = JSON.stringify(myMap);
+    console.log(myJson);
 }
